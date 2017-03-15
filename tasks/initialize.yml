@@ -1,0 +1,30 @@
+---
+# https://github.com/geerlingguy/ansible-role-postgresql/blob/master/tasks/initialize.yml/var/lib/pgsql/
+
+- name: Set PostgreSQL environment variables
+  template:
+    src: postgresql.sh.j2
+    dest: /etc/profile.d/postgresql.sh
+  notify: restart postgresql
+    
+- name: Ensure PostgreSQL data directory exists
+  file:
+    path: "{{ postgresql_data_dir }}"
+    state: directory
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_group }}"
+    mode: "0700"
+
+- name: Check if PostgreSQL is already initialized
+  stat:
+    path: "{{ postgresql_data_dir }}/PG_VERSION"
+  register: pgdata_dir_version
+
+- name: Initialize PostgreSQL database
+  command: "{{ postgresql_bin_path }}/initdb -D {{ postgresql_data_dir }}"
+  when: not pgdata_dir_version.stat.exists
+  become: yes
+  become_user: "{{ postgresql_user }}"
+  # https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
+  vars:
+    ansible_ssh_pipelining: true

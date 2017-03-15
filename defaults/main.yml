@@ -1,0 +1,43 @@
+---
+# defaults file for postgresql
+
+postgresql_repo: []
+
+postgresql_packages:
+  - postgresql94
+  - postgresql94-server
+  - postgresql94-contrib
+  - postgresql94-libs
+
+postgresql_data_dir: "/var/lib/pgsql/9.4/data"
+postgresql_bin_path: "/usr/pgsql-9.4/bin"
+
+postgresql_user: postgres
+postgresql_group: postgres
+
+postgresql_daemon: "postgresql-9.4"
+
+postgresql_databases: []
+  # - name: exampledb # required; the rest are optional
+  #   lc_collate: # defaults to 'en_US.UTF-8'
+  #   lc_ctype: # defaults to 'en_US.UTF-8'
+  #   encoding: # defaults to 'UTF-8'
+  #   template: # defaults to 'template0'
+  #   login_host: # defaults to 'localhost'
+  #   login_password: # defaults to not set
+  #   login_user: # defaults to '{{ postgresql_user }}'
+  #   login_unix_socket: # defaults to 1st of postgresql_unix_socket_directories
+  #   port: # defaults to not set
+
+postgresql_users: []
+  # - name: jdoe #required; the rest are optional
+  #   password: # defaults to not set
+  #   priv: # defaults to not set
+  #   role_attr_flags: # defaults to not set
+  #   db: # defaults to not set
+  #   login_host: # defaults to 'localhost'
+  #   login_password: # defaults to not set
+  #   login_user: # defaults to '{{ postgresql_user }}'
+  #   login_unix_socket: # defaults to 1st of postgresql_unix_socket_directories
+  #   port: # defaults to not set
+  #   state: # defaults to 'present'
